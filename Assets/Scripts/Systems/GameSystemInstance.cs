@@ -31,7 +31,7 @@ namespace GameSystemInstance
         //游戏启动----------------------------
         private void Start()
         {
-            StartCoroutine(start());
+            //StartCoroutine(start());
         }
 
 
