@@ -13,7 +13,7 @@ namespace GameSystemInstance
 #if UNITY_EDITOR
         [Header("【菜单系统】")]
         public EmptyStruct 一一一一一一一一一一一一一一一一一一一一一一一一一一一;
-        //private void Reset() { setting.menuParent = transform.GetChild(0).gameObject; }
+        private void Reset() { setting.menuParent = transform.GetChild(0).gameObject; }
 #endif
         [System.Serializable]
         public class Setting
@@ -53,7 +53,8 @@ namespace GameSystem
         public enum ButtonMessage
         {
             Start,
-            Exit
+            Exit,
+            OpenMenu
         }
 
 

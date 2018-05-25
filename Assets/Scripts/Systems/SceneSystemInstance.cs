@@ -42,7 +42,7 @@ namespace GameSystem
 
 
         //变量--------------------------------
-        private static string currentSceneName = "";
+        private static Stack<string> currentSceneName = new Stack<string>();
 
 
 
@@ -55,30 +55,31 @@ namespace GameSystem
 
 
         //方法--------------------------------
-        /// <summary>
-        /// 加载并替换游戏场景
-        /// </summary>
-        /// <param name="sceneName">场景名</param>
-        public static void LoadScene(string sceneName)
-        {
-            Instance.StartCoroutine(YieldLoadScene(sceneName));
-        }
-        private static IEnumerator YieldLoadScene(string sceneName)
+        ///// <summary>
+        ///// 加载并替换游戏场景
+        ///// </summary>
+        ///// <param name="sceneName">场景名</param>
+        //public static void ChangeScene(string sceneName, bool pause = false, bool showLoadingScene = false)
+        //{
+        //    Instance.StartCoroutine(YieldLoadScene(sceneName, pause, showLoadingScene));
+        //}
+        private static IEnumerator YieldLoadScene(string sceneName, bool pause, bool showLoadingScene)
         {
             //加载Loading场景
             SceneManager.LoadScene("LoadingScene", LoadSceneMode.Additive);
 
             //卸载原场景
-            if (!currentSceneName.Equals(""))
+            if (currentSceneName.Count == 0)
             {
-                SceneManager.UnloadSceneAsync(currentSceneName);
+                Debug.Log("场景栈空！");
             }
+            SceneManager.UnloadSceneAsync(currentSceneName.Pop());
 
             //加载前动画
             //TODO
 
             //加载新场景
-            currentSceneName = sceneName;
+            currentSceneName.Push(sceneName);
             AsyncOperation progress = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
             while (!progress.isDone)
@@ -99,6 +100,33 @@ namespace GameSystem
             SceneManager.UnloadSceneAsync("LoadingScene");
 
             yield return 0;
+        }
+
+        public static void PushScene(string sceneName)
+        {
+            Debug.Log("push场景" + sceneName);
+            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            currentSceneName.Push(sceneName);
+        }
+
+        public static void PopScene()
+        {
+            if (currentSceneName.Count == 0)
+            {
+                Debug.LogError("场景栈空惹");
+                return;
+            }
+            SceneManager.UnloadSceneAsync(currentSceneName.Pop());
+        }
+
+        /// <summary>
+        /// 加载并替换游戏场景
+        /// </summary>
+        /// <param name="sceneName">场景名</param>
+        public static void ChangeScene(string sceneName)
+        {
+            PopScene();
+            PushScene(sceneName);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace GameSystemInstance
         //游戏启动----------------------------
         private void Start()
         {
-            //StartCoroutine(start());
+            StartCoroutine(start());
         }
 
 
@@ -41,13 +41,13 @@ namespace GameSystemInstance
             StartCoroutine(exitCheck());
 
             //开始场景-------------------------------------
-            GameSystem.SceneSystem.LoadScene("StartScene");
+            GameSystem.SceneSystem.PushScene("StartMenu");
 
             while (true)
             {
                 if (GameSystem.MenuSystem.GetButtonMessage(GameSystem.MenuSystem.ButtonMessage.Start))
                 {
-                    print("Start Down");
+                    print("Start");
                     break;
                 }
                 yield return 0;
@@ -57,11 +57,15 @@ namespace GameSystemInstance
 
 
             //游戏场景-------------------------------------
-            GameSystem.SceneSystem.LoadScene("Game0");
+            GameSystem.SceneSystem.ChangeScene("Fire");
 
             while (true)
             {
                 if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    GameSystem.MenuSystem.SendButtonMessage(GameSystem.MenuSystem.ButtonMessage.OpenMenu);
+                }
+                if (GameSystem.MenuSystem.GetButtonMessage(GameSystem.MenuSystem.ButtonMessage.OpenMenu))
                 {
                     GameSystem.MenuSystem.TurnMenu();
                 }
