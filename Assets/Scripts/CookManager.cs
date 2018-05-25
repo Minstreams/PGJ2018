@@ -6,7 +6,7 @@ using UnityEngine;
 /// 开火管理器
 /// </summary>
 [DisallowMultipleComponent]
-public class CookManager : MonoBehaviour
+public class CookManager : MyBehaviour
 {
     /// <summary>
     /// 单例
