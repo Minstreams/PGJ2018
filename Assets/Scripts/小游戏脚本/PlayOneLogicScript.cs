@@ -108,7 +108,7 @@ public class PlayOneLogicScript : MyBehaviour
         g_1 = transform.GetChild(0).GetChild(0).transform;
         initPlace_1_1 = g_1.position;
         backPositionXscale = (float)clickSpeed / 50;
-        g_1_sr = g_1.GetComponent<SpriteRenderer>();
+        g_1_sr = g_1.GetChild(0).GetComponent<SpriteRenderer>();
         g_1_sr_color = g_1_sr.color;
 
         //动画有关初始化
@@ -134,7 +134,7 @@ public class PlayOneLogicScript : MyBehaviour
 
         }
 
-        if (Input.GetKeyDown(GameSystem.SettingSystem.Setting.Input1))
+        if (Input.GetKeyDown(GameSystem.SettingSystem.Setting.Input1)&&g_1.position.x<LeftBorderAndRightBorder.y)
         {
             Vector3 tmpPos = new Vector3(g_1.position.x + 0.5f, g_1.position.y, g_1.position.z);
             g_1.position = tmpPos;
