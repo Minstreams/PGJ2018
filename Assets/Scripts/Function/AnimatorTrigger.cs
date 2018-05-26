@@ -22,7 +22,6 @@ public class AnimatorTrigger : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private string lastParameterName = "";
     public void Play(int index)
     {
         if (index >= parameterName.Length)
@@ -30,13 +29,15 @@ public class AnimatorTrigger : MonoBehaviour
             Debug.LogError("序列超出变量数组大小，index：" + index);
             return;
         }
+        StartCoroutine(play(parameterName[index]));
+    }
 
-        if (!lastParameterName.Equals(""))
-        {
-            animator.SetBool(lastParameterName, false);
-        }
-
-        lastParameterName = parameterName[index];
-        animator.SetBool(parameterName[index], true);
+    private IEnumerator play(string name)
+    {
+        animator.SetBool(name, true);
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        animator.SetBool(name, false);
+        yield return 0;
     }
 }
