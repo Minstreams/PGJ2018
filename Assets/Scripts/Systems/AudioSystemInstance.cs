@@ -65,6 +65,15 @@ namespace GameSystem
 
         //方法--------------------------------
         /// <summary>
+        /// 随机播放音效表列里的一个音效
+        /// </summary>
+        /// <param name="audios">音效表列</param>
+        public static void Play(AudioClip[] audios)
+        {
+            int randomInt = Random.Range(0, audios.Length);
+            Instance.StartCoroutine(play(audios[randomInt], Instance));
+        }
+        /// <summary>
         /// 播放音效
         /// </summary>
         /// <param name="audio">要播放的音效</param>
