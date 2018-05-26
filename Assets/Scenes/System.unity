@@ -145,11 +145,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setting:
-    Cook1Prefab: {fileID: 0}
-    Input1: 102
-    Input2: 101
-    Cook2Prefab: {fileID: 0}
-    Cook3Prefab: {fileID: 0}
+    Cook1Prefab: {fileID: 1950658380023134, guid: f905d6de2a8717346a689c4299a06280,
+      type: 2}
+    Input1: 32
+    Cook2Prefab: {fileID: 1277217843771952, guid: a133cea35b5d0fc4eae7f69a02801fea,
+      type: 2}
+    Cook3Prefab: {fileID: 1903993550517824, guid: b08f3a15e3445924d85aebefc7c18c1a,
+      type: 2}
+    tempAudio: {fileID: 0}
 --- !u!114 &463631735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +198,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 463631733}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59347ccf33d883e4a82a2821d7cb23b7, type: 3}
   m_Name: 
@@ -464,7 +467,6 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
