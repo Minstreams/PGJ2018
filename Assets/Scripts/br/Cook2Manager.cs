@@ -7,10 +7,14 @@ public class Cook2Manager : MyBehaviour {
 	public List<GameObject> arrows = new List<GameObject>();
 	public GameObject arrowsP;
 	public GameObject prefab;
+	public GameObject hook;
+	public GameObject pupa1;
+	public GameObject pupa2;
 	private Queue<int> result = new Queue<int>();
+	private int index = 0;
 	// Use this for initialization
 	void Start () {
-		StartCoroutine(enterArrows());
+		StartCoroutine(sendIn());
 	}
 	
 	// Update is called once per frame
@@ -18,12 +22,29 @@ public class Cook2Manager : MyBehaviour {
 		check();
 	}
 
+	private IEnumerator sendIn()
+	{
+		hook.SetActive(true);
+		yield return new WaitForSeconds(1.2f);
+		pupa1.SetActive(true);
+		StartCoroutine(enterArrows());
+	}
+
+	private IEnumerator sendOut()
+	{
+		hook.GetComponent<AnimatorTrigger>().Play(0);
+		yield return new WaitForSeconds(0.5f);
+	}
+
 	public bool check()
 	{
 		int input = -1;
 		if (result.Count == 0)
 		{
-			CookManager.cookManager.NextUnit();
+			pupa1.SetActive(false);
+			StartCoroutine(sendOut());
+			//CookManager.cookManager.NextUnit();
+
 			return false;
 		}
 		if (Input.GetButtonDown("w"))
@@ -45,8 +66,12 @@ public class Cook2Manager : MyBehaviour {
 		if (input == result.Peek())
 		{
 			result.Dequeue();
-			print(input);
+			if (arrows.Count == 0)
+				return false;
+			//arrows[index].GetComponent<AnimatorTrigger>().Play(0);
+			arrows[index].SetActive(false);
 			input = -1;
+			index++;
 		}
 		return false;
 	}
@@ -56,33 +81,15 @@ public class Cook2Manager : MyBehaviour {
 		{
 			int r = Random.Range(0, 3);
 			result.Enqueue(r);
-			GameObject arrowN = Instantiate(prefab, new Vector3(-11.6f - i * 3, -3.37f, 0), Quaternion .Euler(0, 0, 90 * r));
+			GameObject arrowN = Instantiate(prefab, new Vector3(-10f - i * 3, -4.5f, 0), Quaternion .Euler(0, 0, 90 * r));
 			arrows.Add(arrowN);
 			arrowN.transform.SetParent(arrowsP.transform);
 		}
-		int rotation = 0;
-		bool flag = false;
 		while (true)
 		{
-			//foreach (GameObject hook in hooks)
-			//{
-			//	print(hooksP.transform.position.x);
-			//if (i == 3)
-			//{
-			//	yield break;
-			//}
-			//if (Mathf.Abs(arrowsP.transform.position.x - 3.2f * i) < 0.1f)
-			//{
-			//	GameObject arrowN = Instantiate(arrow, new Vector3(-11.6f, -3.37f, 0), Quaternion .Euler(0, 0, 0));
-			//	arrowN.transform.SetParent(arrowsP.transform);
-			//	i++;
-			//	flag = true;
-			//}
-			//arrowsP.transform.position = new Vector3(arrowsP.transform.position.x + 0.1f, arrowsP.transform.position.y, arrowsP.transform.position.z);
-			//}
 			for (int i = 0; i < arrows.Count; i++)
 			{
-				if (Mathf.Abs(arrows[i].transform.position.x - 5.3f + i) < 0.1f)
+				if (Mathf.Abs(arrows[i].transform.position.x - 3.5f + i) < 0.1f)
 				{
 					continue;	
 				}

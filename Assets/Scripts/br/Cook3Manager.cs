@@ -7,7 +7,8 @@ public class Cook3Manager : MyBehaviour {
 	public GameObject hooksP;
 	public GameObject[] hooks;
 	public GameObject gun;
-	
+	public GameObject fire;
+
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(enterHooks());
@@ -78,11 +79,12 @@ public class Cook3Manager : MyBehaviour {
 	{
 		if (Input.GetButtonDown("Fire1"))
 		{
+			GameObject.Instantiate(fire, gun.transform.position, Quaternion.identity, null);
 			foreach (GameObject hook in hooks)
 			{
 				if (Mathf.Abs(gun.transform.position.x - hook.transform.position.x) < 1.5)
 				{
-					print("中了");
+					//fire.SetActive(true);
 					hook.GetComponent<SpriteRenderer>().color = Color.red;
 					return true;
 				}
