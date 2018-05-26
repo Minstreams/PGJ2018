@@ -356,8 +356,8 @@ MonoBehaviour:
   arrowsP: {fileID: 1555927870990730}
   prefab: {fileID: 1842872094584936, guid: eedd61cce859f434da4e540734c9935d, type: 2}
   hook: {fileID: 1614852879828118}
-  pupa1: {fileID: 0}
-  pupa2: {fileID: 0}
+  pupa1: {fileID: 1111968900367576}
+  pupa2: {fileID: 1541945239659974}
 --- !u!212 &212031139693070158
 SpriteRenderer:
   m_ObjectHideFlags: 1
