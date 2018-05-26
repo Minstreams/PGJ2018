@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 /// <summary>
 /// little game one logic
@@ -55,6 +56,18 @@ public class PlayOneLogicScript : MyBehaviour
     /// 能量条的颜色
     /// </summary>
     Color g_1_sr_color;
+    /// <summary>
+    /// 火焰的动画播放控制器
+    /// </summary>
+    Animator fireAnim_1, fireAnim_2;
+    /// <summary>
+    /// 左火枪
+    /// </summary>
+    GameObject firegun_1;
+    /// <summary>
+    /// 右火枪
+    /// </summary>
+    GameObject firegun_2;
 
     /// <summary>
     /// 设置一秒要点的次数
@@ -82,11 +95,10 @@ public class PlayOneLogicScript : MyBehaviour
     /// 进度条的位置
     /// </summary>
     private Vector3 initPlace_1_1;
-    private void OnEnable()
-    {
-
-
-    }
+    /// <summary>
+    /// 判断游戏是否结束
+    /// </summary>
+    private bool isOver = false;
 
     private void Start()
     {
@@ -98,8 +110,14 @@ public class PlayOneLogicScript : MyBehaviour
         backPositionXscale = (float)clickSpeed / 50;
         g_1_sr = g_1.GetComponent<SpriteRenderer>();
         g_1_sr_color = g_1_sr.color;
-        
-        
+
+        //动画有关初始化
+        firegun_1 = transform.GetChild(1).GetChild(0).gameObject;
+        firegun_2 = transform.GetChild(1).GetChild(1).gameObject;
+        fireAnim_1 = firegun_1.transform.GetChild(0).GetComponent<Animator>();
+        fireAnim_2 = firegun_2.transform.GetChild(0).GetComponent<Animator>();
+        firegun_1.transform.DOLocalMove(new Vector3(-7.243f, 2.23f, 0f), 2f);
+        firegun_2.transform.DOLocalMove(new Vector3(7.243f, 2.23f, 0f), 2f);
     }
 
     private void Update()
@@ -108,15 +126,12 @@ public class PlayOneLogicScript : MyBehaviour
 
         if (completePercent >= 0.99f)
         {
-            //结束 下一个
-            CookManager.cookManager.NextUnit();
-            Debug.Log(myTime + "完成度：" + completePercent * 100 + "%");
+            StartCoroutine(OverFunc(true));
         }
-        if (myTime >= forwardTime)
+        else if (myTime >= forwardTime)
         {
-            //结束  失败
-            CookManager.cookManager.NextUnit();
-            Debug.Log(myTime + "完成度：" + completePercent * 100 + "%");
+            StartCoroutine(OverFunc(false));
+
         }
 
         if (Input.GetKeyDown(GameSystem.SettingSystem.Setting.Input1))
@@ -125,9 +140,8 @@ public class PlayOneLogicScript : MyBehaviour
             g_1.position = tmpPos;
             CompletionAndColorController();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log(myTime + "完成度：" + completePercent * 100 + "%");
         }
     }
 
@@ -136,7 +150,7 @@ public class PlayOneLogicScript : MyBehaviour
         while (true)
         {
             yield return new WaitForSecondsRealtime(0.1f);
-            if (g_1.position.x > initPlace_1.x)
+            if ((g_1.position.x > initPlace_1.x)&&!isOver)
             {
                 Vector3 g_1_tMP_P = new Vector3((g_1.position.x - backPositionXscale), g_1.position.y, g_1.position.z);
                 g_1.position = g_1_tMP_P;
@@ -152,4 +166,21 @@ public class PlayOneLogicScript : MyBehaviour
         g_1_sr_color.b = 1 - completePercent;
         g_1_sr.color = g_1_sr_color;
     }
+
+    private IEnumerator OverFunc(bool isCompleted)
+    {
+        isOver = true;
+        Debug.Log(myTime + "完成度：" + completePercent * 100 + "%");
+        yield return new WaitForSecondsRealtime(0.1f);
+        fireAnim_1.SetBool("isFire", true);
+        fireAnim_2.SetBool("isFire", true);
+        yield return new WaitForSeconds(2);
+        fireAnim_1.SetBool("isFire", false);
+        fireAnim_2.SetBool("isFire", false);
+        firegun_1.transform.DOLocalMove(new Vector3(-11.62f, 4.5f, 0f), 2f);
+        firegun_2.transform.DOLocalMove(new Vector3(11.62f, 4.5f, 0f), 2f);
+        yield return new WaitForSeconds(2);
+        CookManager.cookManager.NextUnit();
+    }
+
 }
