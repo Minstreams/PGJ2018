@@ -24,9 +24,8 @@ public class PlayOneLogicScript : MyBehaviour
         return completePercent;
     }
 #if UNITY_EDITOR
-    [Header("小游戏游戏一物体的初始位置")]
+    [Header("小游戏游戏一物体的初始位置，不提供在面板里修改")]
 #endif
-    [SerializeField]
     private Vector3 initPlace = new Vector3(0, 0, 0);
     public Vector3 InitPlace { get { return initPlace; } }
 #if UNITY_EDITOR
@@ -68,7 +67,7 @@ public class PlayOneLogicScript : MyBehaviour
     /// <summary>
     /// 能量条回退的速度对应的位置的值
     /// </summary>
-    private float backPositionXscale = 0.05f;
+    private float backPositionXscale = 0.1f;
     /// <summary>
     /// 在时间结束前的完成度
     /// 时间内完成则是1
@@ -79,35 +78,41 @@ public class PlayOneLogicScript : MyBehaviour
     /// 小游戏一已经进行的时间
     /// </summary>
     private float myTime = 0;
-
+    /// <summary>
+    /// 进度条的位置
+    /// </summary>
+    private Vector3 initPlace_1_1;
     private void OnEnable()
     {
-        g_1 = transform.GetChild(0).transform.GetChild(0).transform;
 
-        transform.position = initPlace;
-        transform.GetChild(0).transform.position = new Vector3(0, 0, 0);
+
     }
 
     private void Start()
     {
         StartCoroutine(PlayOneController_1());
         //变量初始化
+        transform.GetChild(0).position = initPlace_1;
+        g_1 = transform.GetChild(0).GetChild(0).transform;
+        initPlace_1_1 = g_1.position;
         backPositionXscale = (float)clickSpeed / 50;
         g_1_sr = g_1.GetComponent<SpriteRenderer>();
         g_1_sr_color = g_1_sr.color;
+        
+        
     }
 
     private void Update()
     {
         myTime += Time.deltaTime;
-        
-        if (completePercent>=0.99f)
+
+        if (completePercent >= 0.99f)
         {
             //结束 下一个
             CookManager.cookManager.NextUnit();
             Debug.Log(myTime + "完成度：" + completePercent * 100 + "%");
         }
-        if(myTime >= forwardTime)
+        if (myTime >= forwardTime)
         {
             //结束  失败
             CookManager.cookManager.NextUnit();
@@ -116,14 +121,13 @@ public class PlayOneLogicScript : MyBehaviour
 
         if (Input.GetKeyDown(GameSystem.SettingSystem.Setting.Input1))
         {
-            Vector3 tmpPos = new Vector3(g_1.position.x + 0.2f, g_1.position.y, g_1.position.z);
+            Vector3 tmpPos = new Vector3(g_1.position.x + 0.5f, g_1.position.y, g_1.position.z);
             g_1.position = tmpPos;
             CompletionAndColorController();
-            
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log(myTime+"完成度：" + completePercent * 100 + "%");
+            Debug.Log(myTime + "完成度：" + completePercent * 100 + "%");
         }
     }
 
@@ -143,8 +147,9 @@ public class PlayOneLogicScript : MyBehaviour
 
     private void CompletionAndColorController()
     {
-        completePercent = (g_1.position.x - initPlace_1.x) / (LeftBorderAndRightBorder.y - LeftBorderAndRightBorder.x);
-        g_1_sr_color.g = 1-completePercent;
+        completePercent = (g_1.position.x - initPlace_1_1.x) / (LeftBorderAndRightBorder.y - LeftBorderAndRightBorder.x);
+        g_1_sr_color.g = 1 - completePercent;
+        g_1_sr_color.b = 1 - completePercent;
         g_1_sr.color = g_1_sr_color;
     }
 }
