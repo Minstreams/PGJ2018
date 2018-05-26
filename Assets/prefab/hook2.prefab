@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 95618362339036620}
   - component: {fileID: 114514179359265788}
   m_Layer: 0
-  m_Name: pixie 1
+  m_Name: hook2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
