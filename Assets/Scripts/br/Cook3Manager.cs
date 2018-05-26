@@ -25,6 +25,8 @@ public class Cook3Manager : MyBehaviour {
 
 	private IEnumerator enterHooks(float speed = 0.01f)
 	{
+
+
 		for (int i = 0; i < 5; i++)
 		{
 			hooks.Add(Instantiate(hookP, new Vector3(-10 - i * 3, 6f, 0), Quaternion.Euler(0, 0, 0)));
