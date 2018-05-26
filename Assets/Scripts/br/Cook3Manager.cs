@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cook3Manager : MyBehaviour
-{
+public class Cook3Manager : MyBehaviour {
 
 	public GameObject hooksP;
 	//public GameObject[] hooks;
@@ -15,14 +14,12 @@ public class Cook3Manager : MyBehaviour
 	public GameObject hookP;
 
 	// Use this for initialization
-	void Start()
-	{
+	void Start () {
 		StartCoroutine(enterHooks());
 	}
-
+	
 	// Update is called once per frame
-	void Update()
-	{
+	void Update () {
 		check();
 	}
 
