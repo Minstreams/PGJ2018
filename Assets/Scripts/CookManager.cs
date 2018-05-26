@@ -56,6 +56,9 @@ public class CookManager : MyBehaviour
             this.type = type;
         }
         public UnitType type;
+
+
+
     }
 
     /// <summary>
