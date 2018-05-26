@@ -2,37 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cook3Manager : MyBehaviour {
+public class Cook3Manager : MyBehaviour
+{
 
 	public GameObject hooksP;
-	public GameObject[] hooks;
+	//public GameObject[] hooks;
 	public GameObject gun;
 	public GameObject fire;
+	private GameObject pupa2;
+	private GameObject pupa3;
+	private List<GameObject> hooks = new List<GameObject>();
+	public GameObject hookP;
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
 		StartCoroutine(enterHooks());
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
+	void Update()
+	{
 		check();
 	}
 
 	private IEnumerator enterHooks(float speed = 0.01f)
 	{
+
+
+		for (int i = 0; i < 5; i++)
+		{
+			hooks.Add(Instantiate(hookP, new Vector3(-10 - i * 3, 6f, 0), Quaternion.Euler(0, 0, 0)));
+			hooks[i].transform.SetParent(transform);
+		}
 		while (true)
 		{
-			//foreach (GameObject hook in hooks)
-			//{
-			//	print(hooksP.transform.position.x);
-			if (Mathf.Abs(hooksP.transform.position.x - 0) < 2.4)
+			int j = 0;
+			foreach (GameObject hook in hooks)
 			{
-				StartCoroutine(enterGun());
-				yield break;
+				print(hooksP.transform.position.x);
+				if (j == hooks.Count / 2 && Mathf.Abs(hook.transform.position.x - 0) < 0.1f)
+				{
+					StartCoroutine(enterGun());
+					yield break;
+				}
+				hook.transform.position = new Vector3(hook.transform.position.x + 0.1f, hook.transform.position.y, hook.transform.position.z);
+				j++;
 			}
-			hooksP.transform.position = new Vector3(hooksP.transform.position.x + 0.1f, hooksP.transform.position.y, hooksP.transform.position.z);
-			//}
 			yield return new WaitForSeconds(speed);
 		}
 	}
@@ -82,10 +98,12 @@ public class Cook3Manager : MyBehaviour {
 			GameObject.Instantiate(fire, gun.transform.position, Quaternion.identity, null);
 			foreach (GameObject hook in hooks)
 			{
-				if (Mathf.Abs(gun.transform.position.x - hook.transform.position.x) < 1.5)
+				if (Mathf.Abs(gun.transform.position.x - hook.transform.position.x) < 1.2)
 				{
 					//fire.SetActive(true);
-					hook.GetComponent<SpriteRenderer>().color = Color.red;
+					//hook.GetComponent<SpriteRenderer>().color = Color.red;
+					hook.transform.GetChild(0).gameObject.SetActive(false);
+					hook.transform.GetChild(1).gameObject.SetActive(true);
 					return true;
 				}
 			}
