@@ -37,7 +37,7 @@ public class Cook2Manager : MyBehaviour {
 		//print(1);
 		//pupa22.SetActive(true);
 		pupa1.GetComponent<AnimatorTrigger>().Play(0);
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(0.3f);
 		hook.GetComponent<AnimatorTrigger>().Play(0);
 		yield return new WaitForSeconds(2f);
 		CookManager.cookManager.NextUnit();
