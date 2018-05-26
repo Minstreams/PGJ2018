@@ -41,7 +41,7 @@ public class FPSCamera : MonoBehaviour
 
         horizontalQuaternion *= new Quaternion(0, Mathf.Sin(h * AngleToHalfPIFactor), 0, Mathf.Cos(h * AngleToHalfPIFactor));
         angleVertical += v;
-
+		
         if (angleVertical > 90 - angleLimitUp) { angleVertical = 90 - angleLimitUp; }
         if (angleVertical < angleLimitDown - 90) { angleVertical = angleLimitDown - 90; }
 

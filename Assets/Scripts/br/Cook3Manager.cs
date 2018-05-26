@@ -45,6 +45,7 @@ public class Cook3Manager : MyBehaviour {
 			//	print(hooksP.transform.position.x);
 			if (Mathf.Abs(hooksP.transform.position.x - 16.9f) < 2.4)
 			{
+				CookManager.cookManager.NextUnit();
 				yield break;
 			}
 			hooksP.transform.position = new Vector3(hooksP.transform.position.x + 0.1f, hooksP.transform.position.y, hooksP.transform.position.z);

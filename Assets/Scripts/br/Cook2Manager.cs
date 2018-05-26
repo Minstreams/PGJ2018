@@ -15,20 +15,48 @@ public class Cook2Manager : MyBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		check();
 	}
 
 	public bool check()
 	{
-
+		int input = -1;
+		if (result.Count == 0)
+		{
+			CookManager.cookManager.NextUnit();
+			return false;
+		}
+		if (Input.GetButtonDown("w"))
+		{
+			input = 3;
+		}
+		if (Input.GetButtonDown("s"))
+		{
+			input = 1;
+		}
+		if (Input.GetButtonDown("a"))
+		{
+			input = 0;
+		}
+		if (Input.GetButtonDown("d"))
+		{
+			input = 2;
+		}
+		if (input == result.Peek())
+		{
+			result.Dequeue();
+			print(input);
+			input = -1;
+		}
+		return false;
 	}
 	private IEnumerator enterArrows(float speed = 0.01f)
 	{
 		for (int i = 0; i < 7; i++)
 		{
-			int r = Random.Range(1, 4);
+			int r = Random.Range(0, 3);
 			result.Enqueue(r);
-			GameObject arrowN = Instantiate(prefab, new Vector3(-11.6f - i * 3, -3.37f, 0), Quaternion .Euler(0, 0, 0));
+			GameObject arrowN = Instantiate(prefab, new Vector3(-11.6f - i * 3, -3.37f, 0), Quaternion .Euler(0, 0, 90 * r));
 			arrows.Add(arrowN);
 			arrowN.transform.SetParent(arrowsP.transform);
 		}
@@ -54,7 +82,6 @@ public class Cook2Manager : MyBehaviour {
 			//}
 			for (int i = 0; i < arrows.Count; i++)
 			{
-				print(arrows[0].transform.position.x);
 				if (Mathf.Abs(arrows[i].transform.position.x - 5.3f + i) < 0.1f)
 				{
 					continue;	
