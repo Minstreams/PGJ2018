@@ -37,7 +37,6 @@ public class Cook3Manager : MyBehaviour {
 			int j = 0;
 			foreach (GameObject hook in hooks)
 			{
-				print(hooksP.transform.position.x);
 				if (j == hooks.Count / 2 && Mathf.Abs(hook.transform.position.x - 0) < 0.1f)
 				{
 					StartCoroutine(enterGun());
@@ -57,12 +56,12 @@ public class Cook3Manager : MyBehaviour {
 			//foreach (GameObject hook in hooks)
 			//{
 			//	print(hooksP.transform.position.x);
-			if (Mathf.Abs(hooksP.transform.position.x - 16.9f) < 2.4)
+			if (Mathf.Abs(gameObject.transform.position.x - 17f) < 0.3f)
 			{
 				CookManager.cookManager.NextUnit();
 				yield break;
 			}
-			hooksP.transform.position = new Vector3(hooksP.transform.position.x + 0.1f, hooksP.transform.position.y, hooksP.transform.position.z);
+			gameObject.transform.position = new Vector3(gameObject.transform.position.x + 0.1f, gameObject.transform.position.y, gameObject.transform.position.z);
 			//}
 			yield return new WaitForSeconds(speed);
 		}
@@ -79,6 +78,7 @@ public class Cook3Manager : MyBehaviour {
 			}
 			if ((Mathf.Abs(gun.transform.position.x + 14f) < 0.1f) && i == -1)
 			{
+				gun.transform.SetParent(transform.parent);
 				StartCoroutine(hideHooks());
 				yield break;
 			}

@@ -10,11 +10,13 @@ public class Cook2Manager : MyBehaviour {
 	public GameObject hook;
 	public GameObject pupa1;
 	public GameObject pupa2;
-	private Queue<int> result = new Queue<int>();
+	public GameObject pupa22;
+	private Queue<int> result = new Queue<int>(1);
 	private int index = 0;
+	private bool flag = false;
 	// Use this for initialization
 	void Start () {
-		StartCoroutine(sendIn());
+		StartCoroutine(sendIn()); 
 	}
 	
 	// Update is called once per frame
@@ -32,8 +34,13 @@ public class Cook2Manager : MyBehaviour {
 
 	private IEnumerator sendOut()
 	{
+		//print(1);
+		//pupa22.SetActive(true);
+		pupa1.GetComponent<AnimatorTrigger>().Play(0);
+		yield return new WaitForSeconds(1.5f);
 		hook.GetComponent<AnimatorTrigger>().Play(0);
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(2f);
+		CookManager.cookManager.NextUnit();
 	}
 
 	public bool check()
@@ -41,10 +48,12 @@ public class Cook2Manager : MyBehaviour {
 		int input = -1;
 		if (result.Count == 0)
 		{
-			pupa1.SetActive(false);
-			StartCoroutine(sendOut());
-			//CookManager.cookManager.NextUnit();
-
+			//pupa1.SetActive(false);
+			if (flag)
+			{
+				StartCoroutine(sendOut());
+				flag = false;
+			}
 			return false;
 		}
 		if (Input.GetButtonDown("w"))
@@ -72,6 +81,7 @@ public class Cook2Manager : MyBehaviour {
 			arrows[index].SetActive(false);
 			input = -1;
 			index++;
+			flag = true;
 		}
 		return false;
 	}
