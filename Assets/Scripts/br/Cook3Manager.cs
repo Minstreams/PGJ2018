@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MyBehaviour {
+public class Cook3Manager : MyBehaviour {
 
 	public GameObject hooksP;
 	public GameObject[] hooks;
