@@ -17,9 +17,10 @@ namespace GameSystemInstance
         public class Setting {
             public GameObject Cook1Prefab;
             public KeyCode Input1;
-            public KeyCode Input2;
             public GameObject Cook2Prefab;
             public GameObject Cook3Prefab;
+
+			public AudioClip tempAudio;
         }
 
         public Setting setting;
