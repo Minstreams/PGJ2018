@@ -177,6 +177,7 @@ public class PlayOneLogicScript : MyBehaviour
         yield return new WaitForSeconds(2);
         fireAnim_1.SetBool("isFire", false);
         fireAnim_2.SetBool("isFire", false);
+        g_1.parent.gameObject.SetActive(false);
         firegun_1.transform.DOLocalMove(new Vector3(-11.62f, 4.5f, 0f), 2f);
         firegun_2.transform.DOLocalMove(new Vector3(11.62f, 4.5f, 0f), 2f);
         yield return new WaitForSeconds(2);
