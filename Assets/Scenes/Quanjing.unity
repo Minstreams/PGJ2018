@@ -244,7 +244,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 510038528
+  randomSeed: -1950705931
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3819,6 +3819,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2059395200}
   - component: {fileID: 2059395199}
+  - component: {fileID: 2059395202}
   - component: {fileID: 2059395198}
   - component: {fileID: 2059395197}
   - component: {fileID: 2059395201}
@@ -3903,9 +3904,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88e09c83ab48ac147886f8f1286d5392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSensitivity: 1
-  verticalSensitivity: 1
-  angleLimitUp: 0
-  angleLimitDown: 0
-  horizontalQuaternion: {x: 0, y: 0, z: 0, w: 1}
-  verticalQuaternion: {x: 0, y: 0, z: 0, w: 0}
+  horizontalSensitivity: 1.15
+  verticalSensitivity: 1.15
+  angleLimitUp: 31.5
+  angleLimitDown: 23.7
+  horizontalQuaternion: {x: 0, y: 0.06514197, z: 0, w: 0.99788046}
+  verticalQuaternion: {x: 0.046452727, y: 0, z: 0, w: 0.9989205}
+--- !u!114 &2059395202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2059395196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 34efc25bd58113b49aed49bc364c4d74, type: 2}
