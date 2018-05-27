@@ -59,7 +59,7 @@ namespace GameSystemInstance
 
 			//此处是每一天的开场动画
 			GameSystem.SceneSystem.ChangeScene("BeginScene");
-			yield return new WaitForSeconds(10);
+			yield return new WaitForSeconds(3);
 
             GameSystem.SceneSystem.ChangeScene("Fire");
 

@@ -20,7 +20,11 @@ namespace GameSystemInstance
             public GameObject Cook2Prefab;
             public GameObject Cook3Prefab;
 
-			public AudioClip tempAudio;
+			public AudioClip cook1;
+			public AudioClip hookEnter;
+			public AudioClip[] cook3;
+
+			public AudioClip[] testAudios;
         }
 
         public Setting setting;
