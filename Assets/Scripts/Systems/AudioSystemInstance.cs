@@ -29,9 +29,9 @@ namespace GameSystemInstance
             [Header("音乐淡出时间"), Range(0.1f, 2.0f)]
             public float musicFadeOutTime = 1.0f;
             /// <summary>
-            /// 音乐小结秒数
+            /// 音乐小节秒数
             /// </summary>
-            public float sectionSeconds;
+            public float sectionSeconds = 240.0f/118.0f;
         }
 
         private void Start()
