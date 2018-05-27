@@ -75,6 +75,7 @@ public class Cook2Manager : MyBehaviour {
 		if (input == result.Peek())
 		{
 			result.Dequeue();
+			GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.cook2_kan);
 			if (arrows.Count == 0)
 				return false;
 			//arrows[index].GetComponent<AnimatorTrigger>().Play(0);

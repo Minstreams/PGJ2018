@@ -42,7 +42,6 @@ namespace GameSystemInstance
 
             //开始场景-------------------------------------
             GameSystem.SceneSystem.PushScene("StartMenu");
-
             while (true)
             {
                 if (GameSystem.MenuSystem.GetButtonMessage(GameSystem.MenuSystem.ButtonMessage.Start))
@@ -62,8 +61,8 @@ namespace GameSystemInstance
 			yield return new WaitForSeconds(3);
 
             GameSystem.SceneSystem.ChangeScene("Fire");
-
-            while (true)
+			GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.bgm);
+			while (true)
             {
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {

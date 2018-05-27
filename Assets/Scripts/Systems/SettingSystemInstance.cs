@@ -23,8 +23,12 @@ namespace GameSystemInstance
 			public AudioClip cook1;
 			public AudioClip hookEnter;
 			public AudioClip[] cook3;
-
+			public AudioClip[] cook1_space;
+			public AudioClip cook1_fire;
+			public AudioClip cook1_bk;
+			public AudioClip[] cook2_kan;
 			public AudioClip[] testAudios;
+			public AudioClip bgm;
         }
 
         public Setting setting;

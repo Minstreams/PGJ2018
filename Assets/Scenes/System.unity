@@ -152,7 +152,27 @@ MonoBehaviour:
       type: 2}
     Cook3Prefab: {fileID: 1903993550517824, guid: b08f3a15e3445924d85aebefc7c18c1a,
       type: 2}
-    tempAudio: {fileID: 0}
+    cook1: {fileID: 8300000, guid: 0097c58b4011ce94f948f3d3a9fadf54, type: 3}
+    hookEnter: {fileID: 8300000, guid: 147adcf541f454c44a9bc485c5e5677f, type: 3}
+    cook3:
+    - {fileID: 8300000, guid: ecdf8c2d4e810474493c6c6b1fd89f65, type: 3}
+    - {fileID: 8300000, guid: cbb3d9e4e40e98d42b1817348245ea2b, type: 3}
+    - {fileID: 8300000, guid: 9376e665a0b1fa0429d8915661939983, type: 3}
+    cook1_space:
+    - {fileID: 8300000, guid: d53812bc8046879429fd3cf5f84d0f76, type: 3}
+    - {fileID: 8300000, guid: 2f8bba26fefb5244ba4dc0ebd01b60c1, type: 3}
+    - {fileID: 8300000, guid: 7216b2d82d0a62d49be43133990662f6, type: 3}
+    cook1_fire: {fileID: 0}
+    cook1_bk: {fileID: 8300000, guid: 4c16407e4d46792489227e5bd3c90f19, type: 3}
+    cook2_kan:
+    - {fileID: 8300000, guid: 969f2b43d6364b349bca997e89132ae2, type: 3}
+    - {fileID: 8300000, guid: 60dba88f9c6b3244fb23612df80043c2, type: 3}
+    - {fileID: 8300000, guid: 3e4a4573c3c0eb049896b2afcd066670, type: 3}
+    testAudios:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    bgm: {fileID: 8300000, guid: 76d355f6b82409045b506c43736740ba, type: 3}
 --- !u!114 &463631735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +188,7 @@ MonoBehaviour:
     soundVolumn: 1
     musicVolumn: 1
     musicFadeOutTime: 1
+    sectionSeconds: 2.0338984
 --- !u!114 &463631736
 MonoBehaviour:
   m_ObjectHideFlags: 0

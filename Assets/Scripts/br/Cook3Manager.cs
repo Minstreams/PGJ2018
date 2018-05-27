@@ -71,6 +71,7 @@ public class Cook3Manager : MyBehaviour {
 		int i = 1;
 		while (true)
 		{
+			GameSystem.AudioSystem.WaitForRythm();
 			if (Mathf.Abs(gun.transform.position.x - 7.5f) < 0.1f)
 			{
 				i = -1;

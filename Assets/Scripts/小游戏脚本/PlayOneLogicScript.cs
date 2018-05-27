@@ -102,6 +102,7 @@ public class PlayOneLogicScript : MyBehaviour
 
     private void Start()
     {
+		GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.cook1_bk);
         StartCoroutine(PlayOneController_1());
         //变量初始化
         transform.GetChild(0).position = initPlace_1;
@@ -139,6 +140,7 @@ public class PlayOneLogicScript : MyBehaviour
 
         if (Input.GetKeyDown(GameSystem.SettingSystem.Setting.Input1)&&!isOver)
         {
+			GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.cook1_space);
             Vector3 tmpPos = new Vector3(g_1.position.x + 0.5f, g_1.position.y, g_1.position.z);
             g_1.position = tmpPos;
             CompletionAndColorController();
