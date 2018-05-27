@@ -116,9 +116,8 @@ public class PlayOneLogicScript : MyBehaviour
         g_1_sr_color = g_1_sr.color;
         g_hook_raw = transform.GetChild(2);
         g_hook_completed = transform.GetChild(3);
-        g_hook = transform.GetChild(4);
+        g_pupa1 = transform.GetChild(4);
         g_pupa0 = g_hook_raw.GetChild(0);
-        g_pupa1 = g_hook_completed.GetChild(0);
 
         //动画有关初始化
         firegun_1 = transform.GetChild(1).GetChild(0).gameObject;
@@ -193,12 +192,27 @@ public class PlayOneLogicScript : MyBehaviour
         fireAnim_1.SetBool("isFire", true);
         fireAnim_2.SetBool("isFire", true);
         GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.cook1);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
+        g_pupa0.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
+        g_pupa0.gameObject.SetActive(false);
+        g_pupa1.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
         fireAnim_1.SetBool("isFire", false);
         fireAnim_2.SetBool("isFire", false);
         g_1.parent.gameObject.SetActive(false);
         firegun_1.transform.DOLocalMove(new Vector3(-11.62f, 4.5f, 0f), 2f);
         firegun_2.transform.DOLocalMove(new Vector3(11.62f, 4.5f, 0f), 2f);
+        //钩子横向移动
+        g_hook_completed.DOLocalMove(new Vector3(0, 1.5f, 1), 0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
+        //钩子竖直移动
+        g_hook_completed.DOLocalMove(new Vector3(0, 0.37f, 1), 0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
+        g_pupa1.SetParent(g_hook_completed);
+        g_hook_completed.DOLocalMove(new Vector3(0, 1.5f, 1), 0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
+        g_hook_completed.DOLocalMove(new Vector3(1.383f, 1.5f, 1), 0.5f);
         yield return new WaitForSeconds(2);
         CookManager.cookManager.NextUnit();
 
@@ -213,11 +227,14 @@ public class PlayOneLogicScript : MyBehaviour
         g_hook_raw.DOLocalMove(tmpos, 0.5f);
         yield return new WaitForSecondsRealtime(0.5f);
         tmpos = new Vector3(0, 0.58f, 1);
-        g_hook_raw.DOLocalMove(tmpos, 1);
-        g_pupa0.SetParent(null);
-        tmpos = new Vector3(-1.39f, 1.564f, 1);
         g_hook_raw.DOLocalMove(tmpos, 0.5f);
-
-        //g_hook_raw.DOLocalMove
+        yield return new WaitForSecondsRealtime(0.5f);
+        g_pupa0.SetParent(null);
+        tmpos = new Vector3(0, 1.564f, 0.5f);
+        g_hook_raw.DOLocalMove(tmpos, 0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
+        tmpos = new Vector3(1.39f, 1.564f, 1);
+        g_hook_raw.DOLocalMove(tmpos, 0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
     }
 }
