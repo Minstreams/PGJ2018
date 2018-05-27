@@ -25,8 +25,7 @@ public class Cook3Manager : MyBehaviour {
 
 	private IEnumerator enterHooks(float speed = 0.01f)
 	{
-
-
+		GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.hookEnter);
 		for (int i = 0; i < 5; i++)
 		{
 			hooks.Add(Instantiate(hookP, new Vector3(-10 - i * 3, 6f, 0), Quaternion.Euler(0, 0, 0)));
@@ -99,6 +98,7 @@ public class Cook3Manager : MyBehaviour {
 				{
 					//fire.SetActive(true);
 					//hook.GetComponent<SpriteRenderer>().color = Color.red;
+					GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.cook3);
 					hook.transform.GetChild(0).gameObject.SetActive(false);
 					hook.transform.GetChild(1).gameObject.SetActive(true);
 					return true;
