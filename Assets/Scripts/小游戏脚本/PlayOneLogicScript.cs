@@ -177,7 +177,8 @@ public class PlayOneLogicScript : MyBehaviour
         yield return new WaitForSecondsRealtime(0.1f);
         fireAnim_1.SetBool("isFire", true);
         fireAnim_2.SetBool("isFire", true);
-        yield return new WaitForSeconds(2);
+		GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.cook1);
+		yield return new WaitForSeconds(2);
         fireAnim_1.SetBool("isFire", false);
         fireAnim_2.SetBool("isFire", false);
         g_1.parent.gameObject.SetActive(false);
