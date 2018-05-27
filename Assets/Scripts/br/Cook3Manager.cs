@@ -50,6 +50,7 @@ public class Cook3Manager : MyBehaviour {
 
 	private IEnumerator hideHooks(float speed = 0.01f)
 	{
+		GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.hookLeft);
 		while (true)
 		{
 			//foreach (GameObject hook in hooks)
@@ -69,9 +70,10 @@ public class Cook3Manager : MyBehaviour {
 	private IEnumerator enterGun(float speed = 0.01f)
 	{
 		int i = 1;
+		yield return GameSystem.AudioSystem.waitForRythm();
 		while (true)
 		{
-			GameSystem.AudioSystem.WaitForRythm();
+			
 			if (Mathf.Abs(gun.transform.position.x - 7.5f) < 0.1f)
 			{
 				i = -1;

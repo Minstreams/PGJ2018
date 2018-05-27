@@ -4,199 +4,223 @@ using UnityEngine;
 
 namespace GameSystemInstance
 {
-    /// <summary>
-    /// 声音系统
-    /// </summary>
-    [DisallowMultipleComponent]
-    public class AudioSystemInstance : SystemInstance<AudioSystemInstance>
-    {
+	/// <summary>
+	/// 声音系统
+	/// </summary>
+	[DisallowMultipleComponent]
+	public class AudioSystemInstance : SystemInstance<AudioSystemInstance>
+	{
 #if UNITY_EDITOR
-        [Header("【声音系统】")]
-        public EmptyStruct 一一一一一一一一一一一一一一一一一一一一一一一一一一一;
+		[Header("【声音系统】")]
+		public EmptyStruct 一一一一一一一一一一一一一一一一一一一一一一一一一一一;
 #endif
-        [System.Serializable]
-        public class Setting
-        {
-            [Header("音效音量"), Range(0, 1.0f)]
-            public float soundVolumn = 1.0f;
+		[System.Serializable]
+		public class Setting
+		{
+			[Header("音效音量"), Range(0, 1.0f)]
+			public float soundVolumn = 1.0f;
 
-            [Header("音乐音量"), Range(0, 1.0f)]
-            public float musicVolumn = 1.0f;
+			[Header("音乐音量"), Range(0, 1.0f)]
+			public float musicVolumn = 1.0f;
 
-            /// <summary>
-            /// 音乐淡出时间（秒）
-            /// </summary>
-            [Header("音乐淡出时间"), Range(0.1f, 2.0f)]
-            public float musicFadeOutTime = 1.0f;
-            /// <summary>
-            /// 音乐小节秒数
-            /// </summary>
-            public float sectionSeconds = 240.0f/118.0f;
-        }
+			/// <summary>
+			/// 音乐淡出时间（秒）
+			/// </summary>
+			[Header("音乐淡出时间"), Range(0.1f, 2.0f)]
+			public float musicFadeOutTime = 1.0f;
+			/// <summary>
+			/// 音乐小节秒数
+			/// </summary>
+			public float sectionSeconds = 240.0f / 118.0f;
+		}
 
-        private void Start()
-        {
-            StartCoroutine(GameSystem.AudioSystem.upDate());
-        }
-        public Setting setting;
-    }
+		private void Start()
+		{
+			StartCoroutine(GameSystem.AudioSystem.upDate());
+		}
+		public Setting setting;
+	}
 }
 namespace GameSystem
 {
-    /// <summary>
-    /// 声音系统
-    /// </summary>
-    public static class AudioSystem
-    {
-        /// <summary>
-        /// 设置参数
-        /// </summary>
-        private static GameSystemInstance.AudioSystemInstance.Setting Setting { get { return Instance.setting; } }
-        /// <summary>
-        /// 实例
-        /// </summary>
-        private static GameSystemInstance.AudioSystemInstance Instance { get { return GameSystemInstance.AudioSystemInstance.Instance; } }
+	/// <summary>
+	/// 声音系统
+	/// </summary>
+	public static class AudioSystem
+	{
+		/// <summary>
+		/// 设置参数
+		/// </summary>
+		private static GameSystemInstance.AudioSystemInstance.Setting Setting { get { return Instance.setting; } }
+		/// <summary>
+		/// 实例
+		/// </summary>
+		private static GameSystemInstance.AudioSystemInstance Instance { get { return GameSystemInstance.AudioSystemInstance.Instance; } }
 
 
 
 
 
-        //变量--------------------------------
-        /// <summary>
-        /// 用于标记bgm播放器
-        /// </summary>
-        private static AudioSource musicSource = null;
-        /// <summary>
-        /// 用于标记小节数
-        /// </summary>
-        private static int sectionNum;
+		//变量--------------------------------
+		/// <summary>
+		/// 用于标记bgm播放器
+		/// </summary>
+		private static AudioSource musicSource = null;
+		/// <summary>
+		/// 用于标记小节数
+		/// </summary>
+		private static int sectionNum;
 
 
 
 
-        //方法--------------------------------
-        /// <summary>
-        /// 随机播放音效表列里的一个音效
-        /// </summary>
-        /// <param name="audios">音效表列</param>
-        public static void Play(AudioClip[] audios)
-        {
-            int randomInt = Random.Range(0, audios.Length);
-            Instance.StartCoroutine(play(audios[randomInt], Instance));
-        }
-        /// <summary>
-        /// 播放音效
-        /// </summary>
-        /// <param name="audio">要播放的音效</param>
-        public static void Play(AudioClip audio)
-        {
-            Instance.StartCoroutine(play(audio, Instance));
-        }
-        /// <summary>
-        /// 播放音效
-        /// </summary>
-        /// <param name="audio">要播放的音效</param>
-        /// <param name="source">播放源</param>
-        public static void Play(AudioClip audio, MonoBehaviour source)
-        {
-            source.StartCoroutine(play(audio, source));
-        }
-        private static IEnumerator play(AudioClip audio, MonoBehaviour source)
-        {
-            AudioSource _source =
-            source.gameObject.AddComponent<AudioSource>();
-            _source.clip = audio;
-            _source.volume = Setting.soundVolumn;
-            _source.Play();
+		//方法--------------------------------
+		/// <summary>
+		/// 随机播放音效表列里的一个音效
+		/// </summary>
+		/// <param name="audios">音效表列</param>
+		public static void Play(AudioClip[] audios)
+		{
+			int randomInt = Random.Range(0, audios.Length);
+			Instance.StartCoroutine(play(audios[randomInt], Instance));
+		}
+		/// <summary>
+		/// 播放音效
+		/// </summary>
+		/// <param name="audio">要播放的音效</param>
+		public static void Play(AudioClip audio)
+		{
+			Instance.StartCoroutine(play(audio, Instance));
+		}
+		/// <summary>
+		/// 播放音效
+		/// </summary>
+		/// <param name="audio">要播放的音效</param>
+		/// <param name="source">播放源</param>
+		public static void Play(AudioClip audio, MonoBehaviour source)
+		{
+			source.StartCoroutine(play(audio, source));
+		}
+		private static IEnumerator play(AudioClip audio, MonoBehaviour source)
+		{
+			AudioSource _source =
+			source.gameObject.AddComponent<AudioSource>();
+			_source.clip = audio;
+			_source.volume = Setting.soundVolumn;
+			_source.Play();
 
-            yield return new WaitForSeconds(audio.length);
-            MonoBehaviour.Destroy(_source);
+			yield return new WaitForSeconds(audio.length);
+			MonoBehaviour.Destroy(_source);
 
-            yield return 0;
+			yield return 0;
 
-        }
+		}
 
-        /// <summary>
-        /// 播放BGM
-        /// </summary>
-        /// <param name="music"></param>
-        public static void PlayMusic(AudioClip music)
-        {
-            Instance.StartCoroutine(playMusic(music));
-        }
-        private static IEnumerator playMusic(AudioClip music)
-        {
-            if (musicSource != null)
-            {
-                //已有bgm则淡出
-                float volumn = Setting.musicVolumn;
-                while (volumn > 0)
-                {
-                    musicSource.volume = volumn;
-                    volumn -= Setting.musicVolumn * Time.deltaTime / Setting.musicVolumn;
-                    yield return 0;
-                }
-                MonoBehaviour.Destroy(musicSource);
-            }
+		/// <summary>
+		/// 播放BGM
+		/// </summary>
+		/// <param name="music"></param>
+		public static void PlayMusic(AudioClip music)
+		{
+			Instance.StartCoroutine(playMusic(music));
+		}
+		private static IEnumerator playMusic(AudioClip music)
+		{
+			if (musicSource != null)
+			{
+				//已有bgm则淡出
+				float volumn = Setting.musicVolumn;
+				while (volumn > 0)
+				{
+					musicSource.volume = volumn;
+					volumn -= Setting.musicVolumn * Time.deltaTime / Setting.musicVolumn;
+					yield return 0;
+				}
+				MonoBehaviour.Destroy(musicSource);
+			}
 
-            if (music == null)
-            {
-                musicSource = null;
-            }
-            else
-            {
-                musicSource = Instance.gameObject.AddComponent<AudioSource>();
-                musicSource.clip = music;
-                musicSource.volume = Setting.musicVolumn;
-                musicSource.loop = true;
-                musicSource.Play();
-            }
-            yield return 0;
-        }
+			if (music == null)
+			{
+				musicSource = null;
+			}
+			else
+			{
+				musicSource = Instance.gameObject.AddComponent<AudioSource>();
+				musicSource.clip = music;
+				musicSource.volume = Setting.musicVolumn;
+				musicSource.loop = true;
+				musicSource.Play();
+			}
+			yield return 0;
+		}
 
-        /// <summary>
-        /// 设置音效音量
-        /// </summary>
-        /// <param name="volumn">音量（0.0~1.0）</param>
-        public static void SetSoundVolumn(float volumn)
-        {
-            Setting.soundVolumn = volumn;
-        }
+		/// <summary>
+		/// 设置音效音量
+		/// </summary>
+		/// <param name="volumn">音量（0.0~1.0）</param>
+		public static void SetSoundVolumn(float volumn)
+		{
+			Setting.soundVolumn = volumn;
+		}
 
-        /// <summary>
-        /// 设置音乐音量，并即时应用设置好的音乐音量
-        /// </summary>
-        /// <param name="volumn">音量（0.0~1.0）</param>
-        public static void SetMusicVolumn(float volumn)
-        {
-            Setting.musicVolumn = volumn;
-            musicSource.volume = volumn;
-        }
+		/// <summary>
+		/// 设置音乐音量，并即时应用设置好的音乐音量
+		/// </summary>
+		/// <param name="volumn">音量（0.0~1.0）</param>
+		public static void SetMusicVolumn(float volumn)
+		{
+			Setting.musicVolumn = volumn;
+			musicSource.volume = volumn;
+		}
 
 
 
-        /// <summary>
-        /// 阻塞，直到节奏点
-        /// </summary>
-        public static void WaitForRythm()
-        {
-            int tempSecNum = sectionNum;
-            while (tempSecNum >= sectionNum) ;
-            return;
-        }
+		/// <summary>
+		/// 阻塞，直到节奏点
+		/// </summary>
+		public static void WaitForRythm()
+		{
+			if (musicSource == null) return;
+			int tempSecNum = sectionNum;
+			while (tempSecNum >= sectionNum)
+			{
+				if (Input.GetKey(KeyCode.Escape))
+				{
+					break;
+				}
+			}
+		}
 
-        /// <summary>
-        /// 给Instance调用，提供update功能
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerator upDate()
-        {
-            while (true)
-            {
-                sectionNum = (int)(musicSource.time / Setting.sectionSeconds);
-                yield return 0;
-            }
-        }
-    }
+		public static IEnumerator waitForRythm()
+		{
+			if (musicSource != null)
+			{
+				int tempSecNum = sectionNum;
+				while (tempSecNum >= sectionNum)
+				{
+					if (Input.GetKey(KeyCode.Escape))
+					{
+						break;
+					}
+					yield return 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// 给Instance调用，提供update功能
+		/// </summary>
+		/// <returns></returns>
+		public static IEnumerator upDate()
+		{
+			while (true)
+			{
+				if (musicSource != null)
+					sectionNum = (int)(musicSource.time / Setting.sectionSeconds);
+				//Debug.Log(sectionNum);
+				yield return 0;
+			}
+		}
+	}
 
 }

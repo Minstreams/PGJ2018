@@ -61,7 +61,7 @@ namespace GameSystemInstance
 			yield return new WaitForSeconds(3);
 
             GameSystem.SceneSystem.ChangeScene("Fire");
-			GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.bgm);
+			GameSystem.AudioSystem.PlayMusic(GameSystem.SettingSystem.Setting.bgm);
 			while (true)
             {
                 if (Input.GetKeyDown(KeyCode.Escape))

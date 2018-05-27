@@ -16,6 +16,7 @@ public class Cook2Manager : MyBehaviour {
 	private bool flag = false;
 	// Use this for initialization
 	void Start () {
+		GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.hookEnter);
 		StartCoroutine(sendIn()); 
 	}
 	
@@ -36,6 +37,7 @@ public class Cook2Manager : MyBehaviour {
 	{
 		//print(1);
 		//pupa22.SetActive(true);
+		GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.hookLeft);
 		pupa1.GetComponent<AnimatorTrigger>().Play(0);
 		yield return new WaitForSeconds(0.3f);
 		hook.GetComponent<AnimatorTrigger>().Play(0);
