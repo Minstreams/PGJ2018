@@ -55,8 +55,12 @@ namespace GameSystemInstance
 
             GameSystem.MenuSystem.ResetButtonMessage();
 
+			//游戏场景-------------------------------------
 
-            //游戏场景-------------------------------------
+			//此处是每一天的开场动画
+			GameSystem.SceneSystem.ChangeScene("BeginScene");
+			yield return new WaitForSeconds(10);
+
             GameSystem.SceneSystem.ChangeScene("Fire");
 
             while (true)
