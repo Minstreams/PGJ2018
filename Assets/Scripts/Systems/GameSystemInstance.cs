@@ -28,6 +28,8 @@ namespace GameSystemInstance
             instance = this;
         }
 #endif
+
+        public static int dayNum = 0;
         //游戏启动----------------------------
         private void Start()
         {
@@ -40,8 +42,14 @@ namespace GameSystemInstance
         {
             StartCoroutine(exitCheck());
 
-            //开始场景-------------------------------------
             GameSystem.SceneSystem.PushScene("StartMenu");
+            yield return menuCheck();
+        }
+        private IEnumerator menuCheck()
+        {
+            CursorCompo.SetVisible(true);
+            //开始场景-------------------------------------
+            GameSystem.AudioSystem.PlayMusic(GameSystem.SettingSystem.Setting.bgmSoft);
             while (true)
             {
                 if (GameSystem.MenuSystem.GetButtonMessage(GameSystem.MenuSystem.ButtonMessage.Start))
@@ -54,15 +62,18 @@ namespace GameSystemInstance
 
             GameSystem.MenuSystem.ResetButtonMessage();
 
-			//游戏场景-------------------------------------
+            //游戏场景-------------------------------------
+            CursorCompo.SetVisible(false);
 
-			//此处是每一天的开场动画
-			GameSystem.SceneSystem.ChangeScene("BeginScene");
-			yield return new WaitForSeconds(3);
-
+            //此处是每一天的开场动画
             GameSystem.SceneSystem.ChangeScene("Fire");
-			GameSystem.AudioSystem.PlayMusic(GameSystem.SettingSystem.Setting.bgm);
-			while (true)
+            yield return cookCheck();
+        }
+
+        private IEnumerator cookCheck()
+        {
+            GameSystem.AudioSystem.PlayMusic(GameSystem.SettingSystem.Setting.bgm);
+            while (true)
             {
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -72,10 +83,58 @@ namespace GameSystemInstance
                 {
                     GameSystem.MenuSystem.TurnMenu();
                 }
+                if (GameSystem.MenuSystem.GetButtonMessage(GameSystem.MenuSystem.ButtonMessage.EndTheDay))
+                {
+                    GameSystem.MenuSystem.ResetButtonMessage();
+                    GameSystem.SceneSystem.ChangeScene("Quanjing");
+                    yield return quanJingCheck();
+                    break;
+                }
                 yield return 0;
             }
-
-            GameSystem.MenuSystem.ResetButtonMessage();
+        }
+        private IEnumerator quanJingCheck()
+        {
+            GameSystem.AudioSystem.PlayMusic(GameSystem.SettingSystem.Setting.bgmSoft);
+            while (true)
+            {
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    GameSystem.MenuSystem.SendButtonMessage(GameSystem.MenuSystem.ButtonMessage.OpenMenu);
+                }
+                if (GameSystem.MenuSystem.GetButtonMessage(GameSystem.MenuSystem.ButtonMessage.OpenMenu))
+                {
+                    GameSystem.MenuSystem.TurnMenu();
+                }
+                if (GameSystem.MenuSystem.GetButtonMessage(GameSystem.MenuSystem.ButtonMessage.EndQuanjing))
+                {
+                    GameSystem.MenuSystem.ResetButtonMessage();
+                    dayNum++;
+                    if (dayNum >= 2)
+                    {
+                        GameSystem.SceneSystem.ChangeScene("end");
+                        yield return endCheck();
+                    }
+                    else
+                    {
+                        GameSystem.SceneSystem.ChangeScene("Fire");
+                        yield return cookCheck();
+                    }
+                    break;
+                }
+                yield return 0;
+            }
+        }
+        private IEnumerator endCheck()
+        {
+            GameSystem.AudioSystem.PlayMusic(GameSystem.SettingSystem.Setting.bgm);
+            while (true)
+            {
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    GameSystem.SceneSystem.ChangeScene("StartMenu");
+                }
+            }
         }
         private IEnumerator exitCheck()
         {

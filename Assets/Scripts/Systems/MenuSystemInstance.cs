@@ -54,7 +54,9 @@ namespace GameSystem
         {
             Start,
             Exit,
-            OpenMenu
+            OpenMenu,
+            EndTheDay,
+            EndQuanjing
         }
 
 

@@ -309,7 +309,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: e7238b11f0a700941b9d19be40308300, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 67b195d8bd964144bb623fbf7a4d776f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -448,8 +448,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteUp: {fileID: 21300000, guid: 8e7d4124422603d4da38cd5cf6de18cb, type: 3}
-  spriteDown: {fileID: 21300000, guid: 49e1d2f1bfc9db64b88d30eaa495e5de, type: 3}
-  spriteOver: {fileID: 21300000, guid: 0f1775f3ca0e3d24a925110331eabdee, type: 3}
+  spriteDown: {fileID: 21300000, guid: 0f1775f3ca0e3d24a925110331eabdee, type: 3}
+  spriteOver: {fileID: 21300000, guid: 49e1d2f1bfc9db64b88d30eaa495e5de, type: 3}
   message: 0
 --- !u!65 &944066364
 BoxCollider:
@@ -580,7 +580,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -835,8 +835,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteUp: {fileID: 21300000, guid: 8e7d4124422603d4da38cd5cf6de18cb, type: 3}
-  spriteDown: {fileID: 21300000, guid: 49e1d2f1bfc9db64b88d30eaa495e5de, type: 3}
-  spriteOver: {fileID: 21300000, guid: 0f1775f3ca0e3d24a925110331eabdee, type: 3}
+  spriteDown: {fileID: 21300000, guid: 0f1775f3ca0e3d24a925110331eabdee, type: 3}
+  spriteOver: {fileID: 21300000, guid: 49e1d2f1bfc9db64b88d30eaa495e5de, type: 3}
   message: 1
 --- !u!65 &1723315770
 BoxCollider:
