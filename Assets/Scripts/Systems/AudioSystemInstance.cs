@@ -178,19 +178,6 @@ namespace GameSystem
 		/// <summary>
 		/// 阻塞，直到节奏点
 		/// </summary>
-		public static void WaitForRythm()
-		{
-			if (musicSource == null) return;
-			int tempSecNum = sectionNum;
-			while (tempSecNum >= sectionNum)
-			{
-				if (Input.GetKey(KeyCode.Escape))
-				{
-					break;
-				}
-			}
-		}
-
 		public static IEnumerator waitForRythm()
 		{
 			if (musicSource != null)
