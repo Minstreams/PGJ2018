@@ -49,4 +49,13 @@ public class FPSCamera : MonoBehaviour
 
         transform.rotation = horizontalQuaternion * verticalQuaternion;
     }
+
+    private void Start()
+    {
+        Cursor.visible = false;
+    }
+    private void OnDestroy()
+    {
+        Cursor.visible = true;
+    }
 }
