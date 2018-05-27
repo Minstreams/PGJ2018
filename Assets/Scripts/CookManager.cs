@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 /// <summary>
 /// 开火管理器
@@ -8,6 +9,11 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class CookManager : MyBehaviour
 {
+    public GameObject heroin;
+
+
+
+
 	/// <summary>
 	/// 单例
 	/// </summary>
@@ -166,9 +172,10 @@ public class CookStart : CookManager.CookUnit
 
 	private IEnumerator enter()
 	{
-		//TODO 入场动画
-		//throw new System.NotImplementedException();
-		Debug.Log("这里是开场动画");
+        //TODO 入场动画
+        manager.heroin.transform.DOLocalMove(new Vector3(-4.808002f, 0, 3.814068f), 1f);
+
+        Debug.Log("这里是开场动画");
 		manager.NextUnit();
 		yield return 0;
 	}
@@ -243,6 +250,7 @@ public class CookEnd : CookManager.CookUnit
 	public override void Enter()
 	{
 		Debug.Log("End");
+        manager.heroin.transform.DOLocalMove(new Vector3(-4.808002f, 7.82f, 3.814068f), 1f);
 		throw new System.NotImplementedException();
 	}
 
