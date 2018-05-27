@@ -28,8 +28,16 @@ namespace GameSystemInstance
             /// </summary>
             [Header("音乐淡出时间"), Range(0.1f, 2.0f)]
             public float musicFadeOutTime = 1.0f;
+            /// <summary>
+            /// 音乐小结秒数
+            /// </summary>
+            public float sectionSeconds;
         }
 
+        private void Start()
+        {
+            StartCoroutine(GameSystem.AudioSystem.upDate());
+        }
         public Setting setting;
     }
 }
@@ -58,7 +66,10 @@ namespace GameSystem
         /// 用于标记bgm播放器
         /// </summary>
         private static AudioSource musicSource = null;
-
+        /// <summary>
+        /// 用于标记小节数
+        /// </summary>
+        private static int sectionNum;
 
 
 
@@ -160,6 +171,31 @@ namespace GameSystem
         {
             Setting.musicVolumn = volumn;
             musicSource.volume = volumn;
+        }
+
+
+
+        /// <summary>
+        /// 阻塞，直到节奏点
+        /// </summary>
+        public static void WaitForRythm()
+        {
+            int tempSecNum = sectionNum;
+            while (tempSecNum >= sectionNum) ;
+            return;
+        }
+
+        /// <summary>
+        /// 给Instance调用，提供update功能
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerator upDate()
+        {
+            while (true)
+            {
+                sectionNum = (int)(musicSource.time / Setting.sectionSeconds);
+                yield return 0;
+            }
         }
     }
 
