@@ -48,6 +48,9 @@ public class PlayOneLogicScript : MyBehaviour
     /// 子物体1 点击出现的能量条图
     /// </summary>
     Transform g_1;
+    Transform g_hook_raw;
+    Transform g_hook_completed;
+    Transform g_hook;
     /// <summary>
     /// 能量条的renderer
     /// </summary>
@@ -111,6 +114,9 @@ public class PlayOneLogicScript : MyBehaviour
         backPositionXscale = (float)clickSpeed / 50;
         g_1_sr = g_1.GetChild(0).GetComponent<SpriteRenderer>();
         g_1_sr_color = g_1_sr.color;
+        g_hook_raw = transform.GetChild(2);
+        g_hook_completed = transform.GetChild(3);
+        g_hook = transform.GetChild(4);
 
         //动画有关初始化
         firegun_1 = transform.GetChild(1).GetChild(0).gameObject;
@@ -155,7 +161,7 @@ public class PlayOneLogicScript : MyBehaviour
         while (true)
         {
             yield return new WaitForSecondsRealtime(0.1f);
-            if ((g_1.position.x > initPlace_1.x)&&!isOver)
+            if ((g_1.position.x > initPlace_1.x) && !isOver)
             {
                 Vector3 g_1_tMP_P = new Vector3((g_1.position.x - backPositionXscale), g_1.position.y, g_1.position.z);
                 g_1.position = g_1_tMP_P;
@@ -179,8 +185,8 @@ public class PlayOneLogicScript : MyBehaviour
         yield return new WaitForSecondsRealtime(0.1f);
         fireAnim_1.SetBool("isFire", true);
         fireAnim_2.SetBool("isFire", true);
-		GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.cook1);
-		yield return new WaitForSeconds(2);
+        GameSystem.AudioSystem.Play(GameSystem.SettingSystem.Setting.cook1);
+        yield return new WaitForSeconds(2);
         fireAnim_1.SetBool("isFire", false);
         fireAnim_2.SetBool("isFire", false);
         g_1.parent.gameObject.SetActive(false);
@@ -188,6 +194,15 @@ public class PlayOneLogicScript : MyBehaviour
         firegun_2.transform.DOLocalMove(new Vector3(11.62f, 4.5f, 0f), 2f);
         yield return new WaitForSeconds(2);
         CookManager.cookManager.NextUnit();
+
+
+
     }
 
+    private IEnumerator hook_raw_MoveToDesk()
+    {
+        g_hook_raw.DOMove(new Vector3(0, g_hook_raw.position.y, g_hook_raw.position.z), 1);
+        yield return new WaitForSecondsRealtime(0.2f);
+        g_hook_raw.DOMove(new Vector3(g_hook_raw.position.x, 0.58f, g_hook_raw.position.z), 1);
+    }
 }
