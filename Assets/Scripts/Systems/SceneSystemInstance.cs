@@ -55,49 +55,46 @@ namespace GameSystem
 
 
         //方法--------------------------------
-        ///// <summary>
-        ///// 加载并替换游戏场景
-        ///// </summary>
-        ///// <param name="sceneName">场景名</param>
-        //public static void ChangeScene(string sceneName, bool pause = false, bool showLoadingScene = false)
-        //{
-        //    Instance.StartCoroutine(YieldLoadScene(sceneName, pause, showLoadingScene));
-        //}
-        private static IEnumerator YieldLoadScene(string sceneName, bool pause, bool showLoadingScene)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <param name="showLoadingScene"></param>
+        /// <returns></returns>
+        private static IEnumerator YieldPushScene(string sceneName, bool showLoadingScene)
         {
-            //加载Loading场景
-            SceneManager.LoadScene("LoadingScene", LoadSceneMode.Additive);
-
-            //卸载原场景
-            if (currentSceneName.Count == 0)
+            if (showLoadingScene)
             {
-                Debug.Log("场景栈空！");
+                //加载Loading场景
+                SceneManager.LoadScene("LoadingScene", LoadSceneMode.Additive);
+
+                //加载前动画
+                //TODO
             }
-            SceneManager.UnloadSceneAsync(currentSceneName.Pop());
-
-            //加载前动画
-            //TODO
-
             //加载新场景
-            currentSceneName.Push(sceneName);
             AsyncOperation progress = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            currentSceneName.Push(sceneName);
 
-            while (!progress.isDone)
+            if (showLoadingScene)
             {
-                //播放加载效果
-                if (UpdateProgress != null)
+                while (!progress.isDone)
                 {
-                    //虽然可以把判断置于循环外减少判断次数，不过意义不大，得不偿失
-                    UpdateProgress(progress.progress);
+                    //播放加载效果
+                    if (UpdateProgress != null)
+                    {
+                        //虽然可以把判断置于循环外减少判断次数，不过意义不大，得不偿失
+                        UpdateProgress(progress.progress);
+                    }
+                    yield return 0;
                 }
-                yield return 0;
+
+                //加载后动画
+                //TODO
+
+                //卸载Loading场景
+                SceneManager.UnloadSceneAsync("LoadingScene");
+
             }
-
-            //加载后动画
-            //TODO
-
-            //卸载Loading场景
-            SceneManager.UnloadSceneAsync("LoadingScene");
 
             yield return 0;
         }
